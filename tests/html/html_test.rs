@@ -100,7 +100,7 @@ flush privileges;
 
 ## 插入普通图片
 
-![java](https://img.ibyte.me/470eor.jpg)
+![java](https://img.leonding.me/470eor.jpg)
 
 ## 引用示例
 

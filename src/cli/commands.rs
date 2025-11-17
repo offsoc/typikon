@@ -139,7 +139,7 @@ pub fn handle_serve_command(_args: &[String]) {
     let docs = warp::fs::dir(settings.directory.output.clone());
 
     log.info(format_args!(
-        "Starting HTTP server on port {}",
+        "Starting HTTP server on http://localhost:{}",
         settings.port
     ));
 
@@ -172,14 +172,15 @@ pub fn handle_watch_command() {
     let docs = warp::fs::dir(settings.directory.output.clone());
 
     log.info(format_args!(
-        "Starting HTTP server on port {}",
+        "Starting HTTP server on http://localhost:{}",
         settings.port
     ));
 
     runtime.spawn(async move {
         warp::serve(docs).run(([127, 0, 0, 1], settings.port)).await;
     });
-    // create a channel to receive file change events
+
+    // create a channel to receive file change events.
     let (tx, rx) = channel();
 
     let mut debouncer = new_debouncer(Duration::from_secs(1), tx).unwrap();
@@ -191,6 +192,7 @@ pub fn handle_watch_command() {
             RecursiveMode::Recursive,
         )
         .unwrap();
+
     runtime.block_on(async {
         for res in rx {
             match res {
