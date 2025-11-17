@@ -18,7 +18,7 @@ impl Logger {
 
     fn log(&mut self, level: &str, color: fn(&str) -> ColoredString, format_message: &str) {
         let time = Local::now().format(DATETIME_FORMAT);
-        let formatted = format!("{:<8} {} 💬 {}\n", color(level), time, format_message);
+        let formatted = format!("{:<4} {} 💬 {}\n", color(level), time, format_message);
         self.out
             .write_all(formatted.as_bytes())
             .expect("failed log message to write to stdout");
